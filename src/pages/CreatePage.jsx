@@ -1,10 +1,14 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CreatePage = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [image, setImage] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,6 +31,11 @@ const CreatePage = () => {
       setName("");
       setAge("");
       setImage("");
+
+      toast.success("User created successfully, redirecting to homepage...");
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (error) {
       console.log(`Error: ${error.message}`);
       setError(error.message);
